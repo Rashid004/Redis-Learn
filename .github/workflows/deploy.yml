@@ -54,7 +54,7 @@ jobs:
     if: github.ref == 'refs/heads/staging'
     steps:
       - name: Deploy to Staging EC2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.STAGING_EC2_IP }}
           username: ubuntu
@@ -80,7 +80,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to Production EC2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.PROD_EC2_IP }}
           username: ubuntu
