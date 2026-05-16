@@ -5,6 +5,15 @@ import orderRoutes from "./routes/orders.js";
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Hello from AWS VPC!",
+    server: "EC2 in my-node-vpc",
+    subnet: "public-1a",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
