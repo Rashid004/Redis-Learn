@@ -16,9 +16,12 @@ const cache =
       const originalJson = res.json.bind(res);
 
       res.json = (data) => {
-        redis.setex(key, ttl, JSON.stringify(data)).catch((err) =>
-          console.error("Redis setex error:", err)
-        );
+        const isEmpty = Array.isArray(data) ? data.length === 0 : !data;
+        if (!isEmpty) {
+          redis.setex(key, ttl, JSON.stringify(data)).catch((err) =>
+            console.error("Redis setex error:", err)
+          );
+        }
         return originalJson(data);
       };
 

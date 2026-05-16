@@ -5,9 +5,27 @@ import redis from "../config/redis.js";
 
 const router = express.Router();
 
+router.get("/flush-cache", async (req, res) => {
+  await redis.del("cache:/api/products");
+  res.json({ message: "Cache cleared" });
+});
+
+router.get("/test", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json({ count: products.length, products });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/", cache(1800), async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 router.get("/:id", cache(3600), async (req, res) => {
