@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "node --check src/app.js && echo Build OK",
+    "prod": "NODE_ENV=production node index.js"
   },
   "keywords": [],
   "author": "",
